@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Videojuegos - {% block titulo %}{% endblock %}</title>
+
+   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+
+    <!-- Font Awesome (para íconos) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+   
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body style="background: linear-gradient(135deg, #f0f4ff 0%, #e3f2fd 100%); min-height: 100vh; display: flex; flex-direction: column;">
+
+    <!-- 🔹 Navbar -->
+    <nav class="navbar" style="background: linear-gradient(90deg, #0061ff, #60efff); box-shadow: 0 3px 6px rgba(0,0,0,0.1);">
+        <div class="navbar-brand">
+            <a href="{{ url_for('juegos') }}" class="navbar-item has-text-white" style="font-size: 1.5rem; font-weight: 600;">
+                🎮 <span style="margin-left: 6px;">Gestión de Juegos</span>
+            </a>
+        </div>
+
+        <div class="navbar-menu is-active">
+            <div class="navbar-end" style="margin-right: 1rem;">
+                {% if current_user.is_authenticated %}
+                    <div class="navbar-item">
+                        <span class="has-text-light" style="margin-right: 12px;">
+                            👋Hola, {{ current_user.username }}
+                        </span>
+                        <a href="{{ url_for('auth.logout') }}" class="button is-warning is-light">
+                            <i class="fas fa-sign-out-alt" style="margin-right: 5px;"></i> Cerrar sesión
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <a href="{{ url_for('auth.register') }}" class="button is-success">
+                                <i class="fas fa-user-plus" style="margin-right: 6px;"></i> <strong>Registrarse</strong>
+                            </a>
+                            <a href="{{ url_for('auth.login') }}" class="button is-primary is-light">
+                                <i class="fas fa-sign-in-alt" style="margin-right: 6px;"></i> Iniciar sesion
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!--Contenido principal -->
+    <section class="section" style="flex: 1;">
+        <div class="container">
+
+            <!--Mensajes Flash -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="container" style="max-width:700px; margin-top:15px;">
+                        {% for category, message in messages %}
+                            <div class="notification is-{{ category }} has-text-centered" 
+                                 style="font-size: 1rem; border-radius: 8px;">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            {% block contenido %}{% endblock %}
+        </div>
+    </section>
+
+   <!--Footer -->
+   <footer class="footer has-text-centered" style="background-color:#f8f9fa; color:#000; border-top: 1px solid #dee2e6;">
+        <p style="font-size: 0.95rem;">
+            © 2025 <strong>Gestión de Videojuegos</strong> | Desarrollado por 
+            <strong>Lic. Carlos Navarro</strong> 🎮
+        </p>
+   </footer>
+
+   <!--Auto-cierre de notificaciones -->
+   <script>
+        setTimeout(() => {
+            document.querySelectorAll('.notification').forEach(n => n.remove());
+        }, 4000);
+   </script>
+
+</body>
+</html>

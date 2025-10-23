@@ -1,0 +1,41 @@
+{% extends "maestra.html" %}
+{% block titulo %}Crear Cuenta{% endblock %}
+{% block contenido %}
+<section class="section" style="display: flex; justify-content: center; align-items: center; min-height: 80vh;">
+  <div class="form-card" style="max-width: 450px; width: 100%; background-color: #fff; padding: 2rem; border-radius: 10px; box-shadow: 0 6px 15px rgba(0,0,0,0.1);">
+    <h1 class="title has-text-centered" style="font-size: 1.8rem; margin-bottom: 1rem;">🧑‍💻 Crear Cuenta</h1>
+    <form method="POST">
+      {{ form.hidden_tag() }}
+
+      <div class="field">
+        <label class="label">Nombre de usuario</label>
+        {{ form.username(class="input", placeholder="Ej. carlos_dev") }}
+      </div>
+
+      <div class="field">
+        <label class="label">Correo electrónico</label>
+        {{ form.email(class="input", placeholder="ejemplo@correo.com") }}
+      </div>
+
+      <div class="field">
+        <label class="label">Contraseña</label>
+        {{ form.password(class="input", placeholder="••••••••") }}
+      </div>
+
+      <div class="field">
+        <label class="label">Confirmar contraseña</label>
+        {{ form.password2(class="input", placeholder="Repite tu contraseña") }}
+      </div>
+
+      <div class="field has-text-centered" style="margin-top: 1.5rem;">
+        <button type="submit" class="button is-success is-medium" style="width: 100%;">Registrarse</button>
+      </div>
+    </form>
+
+    <p class="has-text-centered" style="margin-top: 1rem; font-size: 0.9rem;">
+      ¿Ya tienes una cuenta? 
+      <a href="{{ url_for('auth.login') }}" style="color: #0069d9;">Inicia sesión</a>
+    </p>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "maestra.html" %}
+{% block titulo %}Juegos{% endblock %}
+
+{% block contenido %}
+<section class="section">
+  <div class="columns is-centered">
+    <div class="column is-half has-text-centered">
+
+      <h1 class="title">🎮 Gestión de Videojuegos</h1>
+      <p class="subtitle">Administra tu catálogo de forma rápida y elegante</p>
+
+      <div style="display: flex; justify-content: center; gap: 15px; margin-top: 30px;">
+        <a href="{{ url_for('formulario_agregar_juego') }}" 
+           class="button is-success is-large">
+           <i class="fas fa-plus-circle" style="margin-right: 8px;"></i> Agregar Juego
+        </a>
+
+        <a href="{{ url_for('listado_juegos') }}" 
+           class="button is-primary is-large">
+           <i class="fas fa-search" style="margin-right: 8px;"></i> Buscar Juego
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endblock %}

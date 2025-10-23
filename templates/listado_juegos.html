@@ -1,0 +1,104 @@
+{% extends "maestra.html" %}
+
+{% block titulo %}Listado de Juegos{% endblock %}
+
+{% block contenido %}
+<section class="section">
+    <div class="columns">
+        <div class="column">
+            <h1 class="title">Listado de Juegos</h1>
+
+            <!-- Botones principales -->
+            <a href="{{ url_for('formulario_agregar_juego') }}" class="button is-success">Agregar Juego</a>
+            <a href="{{ url_for('juegos') }}" class="button is-primary" style="margin-left: 10px;">Volver</a>
+
+            <!-- Formulario de búsqueda por ID -->
+            <form action="{{ url_for('buscar_juego_por_id') }}" method="POST" style="margin-top: 20px;">
+                <div class="field has-addons">
+                    <div class="control">
+                        <input class="input" type="number" name="id" placeholder="Buscar juego por ID" required>
+                    </div>
+                    <div class="control">
+                        <button type="submit" class="button is-warning">Buscar por ID</button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Mensaje si el ID no existe -->
+            {% if mensaje %}
+            <article class="message is-danger" style="margin-top: 20px;">
+                <div class="message-body">
+                    {{ mensaje }}
+                </div>
+            </article>
+            {% endif %}
+
+            <!-- Tabla individual si se encontró el juego -->
+            {% if juego %}
+            <table class="table is-bordered is-striped is-hoverable" style="margin-top: 20px;">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Precio</th>
+                        <th>Editar</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ juego.id }}</td>
+                        <td>{{ juego.nombre }}</td>
+                        <td>{{ juego.descripcion }}</td>
+                        <td>${{ "{:,.2f}".format(juego.precio or 0) }}</td>
+                        <td>
+                            <a href="{{ url_for('editar_juego', id=juego.id) }}" class="button is-info">Editar</a>
+                        </td>
+                        <td>
+                            <form action="{{ url_for('eliminar_juego') }}" method="POST" style="display:inline;">
+                                <input type="hidden" name="id" value="{{ juego.id }}">
+                                <button type="submit" class="button is-danger">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            {% else %}
+            <!-- Tabla completa si no se está buscando por ID -->
+            <table class="table is-bordered is-striped is-hoverable" style="margin-top: 20px;">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Precio</th>
+                        <th>Editar</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for juego in juegos %}
+                    <tr>
+                        <td>{{ juego.id }}</td>
+                        <td>{{ juego.nombre }}</td>
+                        <td>{{ juego.descripcion }}</td>
+                        <td>${{ "{:,.2f}".format(juego.precio or 0) }}</td>
+                        <td>
+                            <a href="{{ url_for('editar_juego', id=juego.id) }}" class="button is-info">Editar</a>
+                        </td>
+                        <td>
+                            <form action="{{ url_for('eliminar_juego') }}" method="POST" style="display:inline;">
+                                <input type="hidden" name="id" value="{{ juego.id }}">
+                                <button type="submit" class="button is-danger">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

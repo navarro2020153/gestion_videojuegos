@@ -1,0 +1,169 @@
+/* ======= ESTILO GLOBAL ======= */
+body {
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f0f4ff 0%, #e3f2fd 100%);
+    color: #2d3436;
+    margin: 0;
+    padding: 0;
+}
+
+/* ======= NAVBAR ======= */
+.navbar {
+    background: linear-gradient(90deg, #0061ff, #60efff);
+    padding: 1rem 2rem;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+.navbar-brand .navbar-item {
+    color: #fff;
+    font-size: 1.8rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: 0.3s;
+}
+.navbar-brand .navbar-item:hover {
+    color: #dff9fb;
+    transform: scale(1.05);
+}
+
+/* ======= BOTONES ======= */
+.button {
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+/* Verde */
+.button.is-success {
+    background: linear-gradient(135deg, #00c853, #b2ff59);
+    color: #fff;
+}
+.button.is-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0,200,83,0.3);
+}
+
+/* Azul */
+.button.is-primary {
+    background: linear-gradient(135deg, #007bff, #33b2ff);
+    color: #fff;
+}
+.button.is-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0,123,255,0.3);
+}
+
+/* Naranja */
+.button.is-warning {
+    background: linear-gradient(135deg, #ff8c00, #ffc107);
+    color: #fff;
+}
+.button.is-warning:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(255,140,0,0.3);
+}
+
+/* ======= TABLA ======= */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+    margin-top: 30px;
+}
+.table th {
+    background: #007bff;
+    color: white;
+    text-align: left;
+    padding: 12px;
+    font-weight: 600;
+}
+.table td {
+    background: white;
+    padding: 12px;
+    border-bottom: 1px solid #e9ecef;
+}
+.table tr:hover td {
+    background: #f8f9fa;
+}
+
+/* ======= SECCIONES ======= */
+.section {
+    padding: 50px 30px;
+}
+.columns {
+    margin-top: 25px;
+}
+
+/* ======= FORMULARIOS ======= */
+.form {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    max-width: 600px;
+    margin: auto;
+    transition: 0.3s ease;
+}
+.form:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+.label {
+    font-weight: 600;
+    color: #37474f;
+}
+.input, .textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0 20px;
+    border-radius: 8px;
+    border: 1px solid #ccd1d9;
+    transition: 0.3s;
+    font-size: 1rem;
+}
+.input:focus, .textarea:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0,123,255,0.2);
+}
+
+/* ======= TITULOS ======= */
+.title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    color: #1e3c72;
+    background: linear-gradient(90deg, #1e3c72, #2a5298);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.subtitle {
+    text-align: center;
+    color: #5f6f7a;
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+/* ======= EFECTOS ======= */
+button:active {
+    transform: scale(0.97);
+}
+.table tr {
+    transition: background 0.2s;
+}
+
+/* ======= RESPONSIVE ======= */
+@media (max-width: 768px) {
+    .navbar-brand .navbar-item {
+        font-size: 1.3rem;
+    }
+    .form {
+        padding: 20px;
+    }
+    .title {
+        font-size: 2rem;
+    }
+}
