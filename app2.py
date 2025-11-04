@@ -5,6 +5,10 @@ import controlador_juegos
 from forms import ContactForm
 from models import User
 
+# --- NUEVO: API REST y Swagger ---
+from api import api_bp
+from flasgger import Swagger
+
 # --- Configuración principal ---
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:@localhost/juegos'
@@ -17,22 +21,30 @@ db.init_app(app)
 # --- Configurar LoginManager ---
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = 'auth.login'  # Redirige al login si no esta autenticado
+login_manager.login_view = 'auth.login'  # Redirige al login si no está autenticado
 login_manager.session_protection = 'strong'
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-# --- Importar y registrar Blueprint de autenticacion ---
+# --- Importar y registrar Blueprint de autenticación ---
 from auth import auth
 app.register_blueprint(auth, url_prefix='/auth')
 
+# --- REGISTRO DE API REST + SWAGGER ---
+app.register_blueprint(api_bp)
+Swagger(app, template={
+    "swagger": "2.0",
+    "info": {"title": "API Juegos", "version": "1.0.0"},
+    "basePath": "/api"
+})
 
-#RUTAS DEL PROYECTO
+# =========================
+# RUTAS DEL PROYECTO (HTML)
+# =========================
 
-
-# Pagina principal con botones
+# Página principal con botones
 @app.route("/")
 def inicio():
     return redirect(url_for("juegos"))
@@ -41,7 +53,7 @@ def inicio():
 def juegos():
     return render_template("juegos.html")
 
-# Pagina con tabla completa
+# Página con tabla completa
 @app.route("/listado_juegos")
 @login_required
 def listado_juegos():
@@ -111,9 +123,9 @@ def contacto():
         return redirect(url_for("juegos"))
     return render_template("contacto.html", form=form)
 
-
-#INICIALIZAR LA APLICACION
-
+# =========================
+# INICIALIZAR LA APLICACIÓN
+# =========================
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
